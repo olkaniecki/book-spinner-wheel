@@ -80,73 +80,96 @@ export default function SpinnerWheel({ books }) {
 
   return (
     <div style={{ textAlign: "center" }}>
-      <WheelWrapper>
-        <Wheel
-          mustStartSpinning={mustSpin}
-          prizeNumber={prizeNumber}
-          data={data}
-          backgroundColors={["#A3B18A", "#588157"]}
-          textColors={["black"]}
-          outerBorderColor="#333"
-          outerBorderWidth={4}
-          innerRadius={0}
-          radiusLineColor="#333"
-          radiusLineWidth={2}
-          onStopSpinning={handleStop}
-          fontSize={14}
-          pointerColor="red"
-          pointerRadius={10}
-          renderSlice={(slice) => (
-            <div
-                style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                height: "100%",
-                }}
-            >
-                {slice.image ? (
-                <img
-                    src={slice.image}
-                    alt={slice.option}
-                    style={{ width: 40, height: 60, marginBottom: 4, borderRadius: 4 }}
-                />
-                ) : (
+      {data.length ? (
+        <>
+          <WheelWrapper>
+            <Wheel
+              mustStartSpinning={mustSpin}
+              prizeNumber={prizeNumber}
+              data={data}
+              backgroundColors={["#A3B18A", "#588157"]}
+              textColors={["black"]}
+              outerBorderColor="#333"
+              outerBorderWidth={4}
+              innerRadius={0}
+              radiusLineColor="#333"
+              radiusLineWidth={2}
+              onStopSpinning={handleStop}
+              fontSize={14}
+              pointerColor="red"
+              pointerRadius={10}
+              renderSlice={(slice) => (
                 <div
-                    style={{
-                    width: 40,
-                    height: 60,
-                    marginBottom: 4,
-                    borderRadius: 4,
-                    backgroundColor: "#ccc",
+                  style={{
                     display: "flex",
+                    flexDirection: "column",
                     alignItems: "center",
                     justifyContent: "center",
-                    fontSize: 10,
-                    }}
+                    height: "100%",
+                  }}
                 >
-                    No Cover
+                  {slice.image ? (
+                    <img
+                      src={slice.image.uri}
+                      alt={slice.option}
+                      style={{ width: 40, height: 60, marginBottom: 4, borderRadius: 4 }}
+                    />
+                  ) : (
+                    <div
+                      style={{
+                        width: 40,
+                        height: 60,
+                        marginBottom: 4,
+                        borderRadius: 4,
+                        backgroundColor: "#ccc",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        fontSize: 10,
+                      }}
+                    >
+                      No Cover
+                    </div>
+                  )}
+                  <span>{slice.option}</span>
                 </div>
-                )}
-                <span>{slice.option}</span>
-            </div>
-            )}
-        />
-      </WheelWrapper>
+              )}
+            />
+          </WheelWrapper>
 
-      <SpinButton onClick={handleSpin} disabled={mustSpin}>
-        {mustSpin ? "Spinning..." : "Spin Wheel"}
-      </SpinButton>
+          <SpinButton onClick={handleSpin} disabled={mustSpin}>
+            {mustSpin ? "Spinning..." : "Spin Wheel"}
+          </SpinButton>
+        </>
+      ) : (
+        <p>Add some books to spin the wheel!</p>
+      )}
 
       {winner && (
         <>
           <Overlay />
           <Popup>
             <CoverPopup>
-              <CoverImage src={winner.cover} alt={winner.title} />
+              {winner.image ? (
+                <CoverImage src={winner.image.uri} alt={winner.option} />
+              ) : (
+                <div
+                  style={{
+                    width: 80,
+                    height: 120,
+                    backgroundColor: "#ccc",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    borderRadius: 4,
+                    marginBottom: 16,
+                  }}
+                >
+                  No Cover
+                </div>
+              )}
               <h2>Winner!</h2>
-              <p>{winner.title}</p>
+              <p>{winner.option}</p>
               <SpinButton onClick={closePopUp}>Close</SpinButton>
             </CoverPopup>
           </Popup>

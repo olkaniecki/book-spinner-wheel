@@ -5,15 +5,18 @@ import heroImg from './assets/hero.png'
 import { useBooks } from './context/BooksContext'
 import SpinnerWheel from './components/SpinnerWheel'
 import AddBook from './components/AddBook'
+import BookList from './components/BookList'
 import './App.css'
 
 function App() {
-  const {books} = useBooks();
+  const {books, setBooks} = useBooks();
 
   return (
     <div>
       <h1>Spinner Wheel</h1>
       <AddBook/>
+
+      <BookList books={books} setBooks={setBooks} />
       <SpinnerWheel books={books} />
     </div>
   );
