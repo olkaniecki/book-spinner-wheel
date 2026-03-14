@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import styled from "styled-components";
 import { Wheel } from "react-custom-roulette";
+import { RainbowButton } from "./components/ui/rainbow-button";
 
 const WheelWrapper = styled.div`
   position: relative;
@@ -137,9 +138,9 @@ export default function SpinnerWheel({ books }) {
             />
           </WheelWrapper>
 
-          <SpinButton onClick={handleSpin} disabled={mustSpin}>
+          <RainbowButton onClick={handleSpin} disabled={mustSpin}>
             {mustSpin ? "Spinning..." : "Spin Wheel"}
-          </SpinButton>
+          </RainbowButton>
         </>
       ) : (
         <p>Add some books to spin the wheel!</p>
